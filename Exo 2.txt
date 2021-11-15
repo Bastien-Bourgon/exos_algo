@@ -1,0 +1,60 @@
+/* programme point
+* but: créer une classe point pour générer des points
+* auteur: Bastien BOURGON
+* date : 15/11/2021
+*/
+
+//###DEFINITION CLASSE###
+	classe Point(x,y)
+		x : entier
+		y : entier
+		
+		//constructeur classe
+		Point(x,y)
+		début
+			this->x = x
+			this->y = y
+		fin
+	
+	
+		//getters et setters
+		fonction getX()
+		debut
+			retourner this->x
+		fin
+		
+		fonction getY()
+		debut
+			retourner this->y
+		fin
+		
+		fonction setX(x)
+		debut
+			this->x = x
+		fin
+		
+		fonction setY(y)
+		debut
+			this->y = y
+		fin
+		
+		//conversion de l'objet en chaine
+		fonction convertToString()
+		debut
+			string : chaine
+			string = "Point de coordonées ["+str(x)+","+str(y)+"]"
+			afficher string
+		fin
+	finclasse
+
+programme point
+	point1 : Point
+debut
+	//###TEST CLASSE###
+	point1(0,0)
+	point1->setX(1)
+    point1->setY(2)
+	afficher str(point1->getX()) //affichera 1
+	afficher str(point1->getY()) //affichera 2
+    point1->convertToString() // affichera "Point de coordonées [1,2]"
+fin

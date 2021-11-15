@@ -1,0 +1,67 @@
+/* programme cercle
+* but: créer une classe pour générer un cercle
+* auteur: Bastien BOURGON
+* date : 15/11/2021
+*/
+
+import "Exo 2.txt"
+
+//###DEFINITION CLASSE###
+	classe Cercle(point, radius) hérite de Point //Heritage de la classe Point afin d'avoir déja le centre du cercle géré par cette classe et ses methodes
+		point : Point
+		radius : float
+		
+		//constructeur classe
+		Cercle(point, radius) 
+		début
+			this->point = point
+			this->radius = radius
+		fin
+		
+		fonction area() //calcul d'aire
+		debut
+			retourner radius^2*pi
+		fin
+		
+		fonction containsPoint(point) //detection d'un point dans le cercle
+		debut
+			pointX : entier
+			pointY : entier
+			cercleX : entier
+			cercleY : entier
+			pointX = point->getX()
+			pointY = point->getY()
+			cercleX = this->getX()
+			cercleY = this->getY()
+			
+			si (pointX - cercleX)^2 + (pointY - cercleY)^2 < radius^2 alors
+				afficher "Le point est dans le cercle"
+			sinon
+				afficher "Le point est hors du cercle"
+			finsi
+			
+		fin
+		
+		//conversion de l'objet en chaine
+		fonction convertToString()
+		debut
+			string : chaine
+			string = "Cercle de centre ["+str(x)+","+str(y)+"] et de rayon" + radius
+			afficher string
+		fin
+	finclasse
+
+programme cercle
+	cercle1 : cercle
+	centre : Point
+	point1 : point
+debut
+	centre(2,2)
+	point1(0,2)
+	cercle(centre,3)
+	cercle->convertToString() //affichera "Cercle de centre [2,2] et de rayon 3"
+	afficher "Aire du cercle: "
+	afficher str(cercle->area())
+	afficher "Le point 1 est il dans le cercle :"
+	cercle->containsPoint(point1)
+fin

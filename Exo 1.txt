@@ -1,0 +1,77 @@
+/* programme hippopotame
+* but: créer/gérer une classe permettant de générer des Hippopotames
+* auteur: Bastien BOURGON
+* date : 15/11/2021
+*/
+
+//###DEFINITION CLASSE###
+	classe Hippopotamus(name,poids,tusksSize)
+		name : chaine
+		poids : float //poids en kilos
+		tusksSize : float
+		
+		//constructeur classe
+		Hippopotamus(name,poids,tusksSize)
+		début
+			this->name = name
+			this->poids = poids
+			this->tusksSize = tusksSize
+		fin
+	
+		fonction eat()
+		debut
+			poids = poids+1
+		fin
+		
+		fonction swim()
+		debut
+			poids = poids-0.3
+		fin
+		
+		fonction fight(Hippopotamus adversaire)
+		debut
+			si tusksSize > adversaire->tusksSize alors
+				retourner "Le gagnant du combat est: "+this->name 
+			sinon si tusksSize < adversaire->tusksSize alors
+				retourner "Le gagnant du combat est: "+adversaire->name
+			sinon
+				retourner "Egalité"
+			finsi
+		fin
+		
+		//conversion de l'objet en chaine
+		fonction convertToString()
+		debut
+			string : chaine
+			string = "Hippopotame "+name+":\nPoids: "+str(poids)+" kg\nTaille des défenses: "+str(tusksSize)
+			afficher string
+		fin
+	finclasse
+
+programme hippopotame
+    hippo1: Hippopotamus
+    hippo2: Hippopotamus
+    hippo3: Hippopotamus
+debut
+	//###TEST COMBAT###
+    hippo1("John", 2000, 2) 
+    hippo2("Jane", 1900, 3)
+
+    hippo1->fight(hippo2) //hippo2 vainqeur
+
+	//###CYCLE VIE###
+    hippo3("Jake", 3000, 5)
+
+    pour i de 1 à 21
+        pour j de 1 a 15
+			pour x de 1 a 2
+				hippo3->eat()
+			finpour
+			pour y de 1 a 3
+				hippo3->swim()
+			finpour
+        finpour
+        hippo3->convertToString()
+        afficher "Fin du jour " + str(i)
+    finpour
+fin
