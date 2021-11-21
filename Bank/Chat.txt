@@ -13,7 +13,7 @@ message : chaine
 
     tantque exit_chat == FAUX alors //tant que l'utilisateur n'a pas quitté la fenetre de chat
         si bouton_envoi_message->clicked == VRAI alors  
-            user->contacterConseiller(message);
+            user->contacterConseiller(message)
         finsi
 
         si message_recu(user->idConseiller) == VRAI alors //si l'on à recu un message du conseiller
