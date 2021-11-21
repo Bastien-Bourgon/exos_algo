@@ -1,0 +1,107 @@
+classe Utilisateur(pseudo,email,mdp,tel,IBAN,idConseiller,idBénéficiares)
+    pseudo : chaine
+    email : chaine
+    mdp : chaine
+    tel : chaine
+    IBAN : chaine
+    idConseiller : entier
+    idBénéficiares[0..*] : entier 
+
+    Utilisateur(pseudo,email,mdp,tel,IBAN,idConseiller)
+    debut
+        this->pseudo = pseudo
+		this->email = email
+        this->mdp = mdp
+        this->tel = tel
+        this->IBAN = IBAN
+        this->idConseiller = idConseiller
+    fin
+
+    //############################### GETTERS ET SETTERS ###############################
+    fonction getPseudo()
+    debut
+        retourner this->pseudo
+    fin
+
+    fonction setPseudo(pseudo)
+    debut
+        this->pseudo = pseudo
+    fin
+
+        fonction getEmail()
+    debut
+        retourner this->email
+    fin
+
+    fonction setEmail(email)
+    debut
+        this->email = email
+    fin
+
+        fonction getMdp()
+    debut
+        retourner this->mdp
+    fin
+
+    fonction setMdp(mdp)
+    debut
+        this->mdp = mdp
+    fin
+
+        fonction getTel()
+    debut
+        retourner this->tel
+    fin
+
+    fonction setTel(tel)
+    debut
+        this->tel = tel
+    fin
+
+        fonction getIBAN()
+    debut
+        retourner this->IBAN
+    fin
+
+    fonction setIBAN(IBAN)
+    debut
+        this->IBAN = IBAN
+    fin
+
+        fonction getIdConseiller()
+    debut
+        retourner this->idConseiller
+    fin
+
+    fonction setIdConseiller(idConseiller)
+    debut
+        this->idConseiller = idConseiller
+    fin
+
+    //############################### METHODES ###############################
+    fonction contacterConseiller(message)
+    debut
+        envoyerMessage(getConseillerByID(idConseiller),message);
+        retourner "Message envoyé avec success"
+    fin
+    
+    fonction addBénéficiaire(id) //Ajoute le bénéficaire ayant pour iD l'entier en paramètre aux bénéficaires de l'utilisateur
+    debut
+        idBénéficiares->add(id)
+    fin
+
+    fonction listBénéficiaires()
+    debut
+        //Récupère depuis la BDD toutes les infos de chaque conseiller et les affiche en une liste ordonnée par ordre d'ajout
+        pour chaque bénéficaire dans idBénéficiares
+            infos_bénéficiaire = fetchBénéficaireById(bénéficaire) //Recherche en BDD les infos du bénéficaires ayant cet ID
+            afficher "Prenom:"
+            afficher infos_bénéficiaire->prenom
+            afficher "Nom:"
+            afficher infos_bénéficiaire->nom
+            afficher "IBAN:"
+            afficher infos_bénéficiaire->IBAN
+        finpour
+    fin
+
+finclasse
