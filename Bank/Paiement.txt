@@ -39,7 +39,7 @@ debut
         effectuerVirement(idDestinataire,montant_virement)
         afficher "Virement effectué avec success"
     sinon                                                   //Virement international, donc on convertit la monnaie en la devise du destinataire avant d'effectuer le virement
-        convertDevises("FR",pays_IBAN) //Convertit la monnaie de Euro en la devise du pays concerné
+        convertDevises("FR",pays_IBAN,montant_virement) //Convertit la monnaie de Euro en la devise du pays concerné
         effectuerVirement(idDestinataire,montant_virement)
         afficher "Virement effectué avec success"
     finsi
