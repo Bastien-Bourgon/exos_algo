@@ -1,0 +1,30 @@
+/* programme ajout_bénéficiaire
+* but: gérér l'ajout d'un nouveau bénéficaire par l'utilisateur
+* auteur: Bastien BOURGON
+* date : 16/11/2021
+*/
+
+importer user de "Login.txt"
+
+programme ajout_bénéficiaire
+debut
+    prenom_bénéficiaire : chaine
+    nom_bénéficiaire : chaine
+    IBAN_bénéficiaire : chaine
+    id_bénéficiaire : entier
+
+    afficher "Veuillez saisir l'IBAN, nom et prénom du bénéficaire à ajouter"
+    saisir nom_bénéficiaire
+    saisir prenom_bénéficiaire
+    saisir IBAN_bénéficiaire
+
+    if checkIfBénéficaireExists() == VRAI alors //Interroge la BDD si la personne spéficiée existe
+        id_bénéficaire = getBénéficaireId(nom_bénéficiaire,prenom_bénéficiaire,IBAN_bénéficiaire) //Récupère l'ID de la personne en BDD qui correspondent aux informations saisies 
+        user->addBénéficiaire(id_bénéficaire) //Ajout de l'ID au tableau des bénéficaires de l'utilisateur
+        afficher "Bénéficaire ajouté avec succès"
+    sinon
+        afficher "Bénéficaire introuvable, veuillez réessayer"
+    finsi
+    
+    rediriger vers "Main.txt"
+fin

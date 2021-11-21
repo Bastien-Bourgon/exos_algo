@@ -1,0 +1,33 @@
+/* programme chat
+* but: gérér la messagerie entre le client et son conseiller
+* auteur: Bastien BOURGON
+* date : 16/11/2021
+*/
+
+importer user de "Login.txt"
+
+programme chat
+debut
+exit_chat : booléen
+message : chaine
+
+    tantque exit_chat == FAUX alors //tant que l'utilisateur n'a pas quitté la fenetre de chat
+        si bouton_envoi_message->clicked == VRAI alors  
+            user->contacterConseiller(message);
+        finsi
+
+        si message_recu(user->idConseiller) == VRAI alors //si l'on à recu un message du conseiller
+            afficher "Vous avez recu un nouveau message"
+            playSound("generic_notification.wav")
+        finsi
+
+        si bouton_exit->clicked == VRAI alors  
+            exit_chat = vrai
+        finsi
+
+        updateChatbox() //on rafraichit la boite de chat pour inclure les nouveaux messages, si il y'en à
+    fintantque
+
+rediriger vers "Main.txt" //redirection au menu principal de l'appli bancaire
+
+fin

@@ -1,0 +1,25 @@
+/* programme main
+* but: menu principal de l'appli bancaire
+* auteur: Bastien BOURGON
+* date : 16/11/2021
+*/
+
+programme main
+debut
+
+    bouton_chat : Button
+    bouton_déconnexion : Button
+    bouton_ajout_bénéficiaire : Button
+    bouton_paiement : Button
+
+    //redirige l'utilisateur sur la page correspondante en fonction du bouton sur lequel il appuie
+    si bouton_chat->clicked == VRAI
+        rediriger vers "Chat.txt"      
+    sinon si bouton_déconnexion->clicked == VRAI
+        rediriger vers "Login.txt"
+    sinon si bouton_ajout_bénéficiaire->clicked == VRAI
+        rediriger vers "AjoutBeneficiaire.txt"
+    sinon si bouton_paiement->clicked == VRAI
+        rediriger vers "Paiement.txt"
+    finsi
+fin

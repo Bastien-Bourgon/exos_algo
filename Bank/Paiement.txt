@@ -1,0 +1,48 @@
+/* programme paiement
+* but: gérér les paiement à la fois en france et à l'international
+* auteur: Bastien BOURGON
+* date : 16/11/2021
+*/
+
+importer user de "Login.txt"
+
+idDestinataire : entier
+montant_virement : float
+nom_bénéficiaire : chaine
+prenom_bénéficiaire : chaine
+IBAN_bénéficiaire : chaine
+pays_bénéficaire : chaine
+
+fonction getPaysBénéficiaire(id_bénéficaire)
+IBAN : chaine
+pays_IBAN : chaine
+debut
+IBAN = getIBANBbénéficaire(id_bénéficaire)
+pays_IBAN = extraire(IBAN,0,2)
+retourner pays_IBAN
+fin
+
+programme paiement
+debut
+    afficher "Liste de vos bénéficaires:"
+    user->listBénéficiaires()
+    afficher "Veuillez selectionner le nom, prénom et IBAN du bénéficaire à qui effectuer le virement"
+    idDestinataire = getBénéficaireId(nom_bénéficiaire,prenom_bénéficiaire,IBAN_bénéficiaire) //Récupère l'ID du destinataire en BDD qui correspondent aux informations saisies
+    si idDestinataire == null alors
+        afficher "ERREUR: bénéficaire introuvable"
+    sinon
+        afficher "Veuillez saisir le montant à virer au destinataire"
+        saisir montant_virement
+    finsi
+    pays_bénéficaire = getPaysBénéficiaire(idDestinataire)
+    si pays_bénéficaire == "FR" alors                       //Virement national, donc on execute simplement le virement
+        effectuerVirement(idDestinataire,montant_virement)
+        afficher "Virement effectué avec success"
+    sinon                                                   //Virement international, donc on convertit la monnaie en la devise du destinataire avant d'effectuer le virement
+        convertDevises("FR",pays_IBAN) //Convertit la monnaie de Euro en la devise du pays concerné
+        effectuerVirement(idDestinataire,montant_virement)
+        afficher "Virement effectué avec success"
+    finsi
+    
+    rediriger vers "Main.txt"
+fin
