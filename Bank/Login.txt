@@ -1,0 +1,95 @@
+/* programme login
+* but: gérér l'authentification de l'utilisateur
+* auteur: Bastien BOURGON
+* date : 16/11/2021
+*/
+
+importer "Classes/Utilisateur.txt
+
+fonction form_creer_compte()
+debut
+    user_pseudo : chaine
+    user_email : chaine
+    user_mdp : chaine
+    user_verify_mdp : chaine
+    user_tel : chaine
+    user_IBAN : chaine
+    user_conseiller : entier
+    compte_crée : booléen
+
+    afficher  "Veuillez saisir votre pseudo"
+    saisir user_pseudo
+
+    afficher "Veuillez saisir votre mot de passe"
+    saisir user_mdp
+
+    afficher "Confirmez votre mot de passe"
+    saisir user_verify_mdp
+
+    afficher "Veuillez saisir votre numero de téléphone"
+    saisir user_tel
+
+
+
+    si user_mdp != user_verify_mdp
+        afficher "ERREUR: les mots de passe ne correspondent pas"
+    sinon
+        user_conseiller = getAvailableConseiller() // Demande à la BDD le premier conseiller disponible et le stocke dans user_conseiller
+        user_IBAN = generateIBAN() //Génére l'IBAN de l'utilisateur
+        user = createNewUser(user_pseudo,user_email,user_mdp,user_IBAN,user_tel,user_conseiller); //Crée en BDD un utilisateur avec les données saisies et renvoie un objet Utilisateur correspondant
+        retourne user
+    finsi
+fin
+
+fonction form_connexion_compte()
+debut
+    user : Utilisateur
+    user_pseudo : chaine
+    user_email : chaine
+    user_mdp : chaine
+    code_verif : entier
+    code_envoye : entier
+    code_valide : booléen
+
+    afficher  "Veuillez saisir votre pseudo"
+    saisir user_pseudo
+
+    afficher "Veuillez saisir votre mot de passe"
+    saisir user_mdp
+
+    si verifyUser(user_pseudo,user_mdp) == VRAI alors //verifyUser retourne un booléen en fonction de si un utilisateur avec ce pseudo et mdp existe en BDD
+        user = fetchUser(user_pseudo,user_mdp) //fetchUser retourne un objet Utilisateur avec les données stockés en BDD pour ce pseudo et mdp
+        code_verif = envoyerCodeVerif(user->tel) //Envoi d'un code à 6 chiffres par SMS à l'utilisateur pour l'authentification à deux facteurs et retourne ce code
+        tantque code_valide == FAUX alors
+            afficher "Veuillez saisir le code de verification envoyé par SMS"
+            saisir code_envoye
+                si code_envoye == code_verif alors
+                    afficher "Connexion reussie"
+                    code_valide = VRAI
+                sinon
+                    afficher "Code incorrect, veuillez ressayer"
+                finsi
+        fintantque
+        retourner user
+    sinon
+        afficher "ERREUR: Utilisateur introuvable, êtes-vous sur d'avoir saisi les bonnes informations ?"
+    finsi
+
+
+fin
+
+programme login
+debut
+    user : Utilisateur
+    bouton_creer_compte : Button
+    bouton_connexion : Button
+
+    si bouton_creer_compte->clicked == VRAI alors // Si l'utilisateur clique sur "Inscription", lance le formulaire correspondant
+        user = form_creer_compte()
+    sinon si bouton_connexion->clicked == VRAI alors // Si l'utilisateur clique sur "Connexion", lance le formulaire correspondant
+        user = form_connexion_compte()
+    finsi
+    si user != null
+        rediriger vers "Main.txt"
+    finsi
+fin
